@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./resource/css/bootstrap.min.css">
+    <script src="./resource/js/jquery-3.6.0.min.js"></script>
+    <script src="./resource/js/bootstrap.min.js"></script>
+    <title>专业抽签</title>
+</head>
+
+<body>
+    <div class="container-fluid" align="center">
+        <div style="width:500px;padding-top:15%">
+            <label for="inputHelpBlock">
+                <h1>专业抽签</h1>
+            </label>
+            <input type="text" id="major" class="form-control" aria-describedby="helpBlock">
+            <span id="helpBlock" class="help-block">专业名单：<a
+                    href='#'>blablabla</a></span>
+            <button type="button" class="btn btn-default" id="startDrawing">开始滚动</button>
+            <button type="button" class="btn btn-danger" id="draw">抽！</button>
+        </div>
+    </div>
+</body>
+<script src="./majors.js"></script>
+<script>
+    var drawFlag = false;
+    $(function () {
+        $("#startDrawing").click(function () {
+            drawFlag = true;
+            randMajor();
+        });
+        $("#draw").click(function () {
+            drawFlag = false;
+            console.log(drawFlag);
+        });
+    });
+
+    function rnd(n, m){
+        var random = Math.floor(Math.random()*(m-n+1)+n);
+        while(random > m){
+            random = Math.floor(Math.random()*(m-n+1)+n);
+        }
+        return random;
+    }
+
+    function randMajor(){
+        ran = rnd(0, majors.length - 1);
+        $("#major").val("(" + majors[ran].department + ') - ' + majors[ran].major + ' - ' + majors[ran].code);
+        // $("#major").val(majors[ran].major + ' - ' + majors[ran].code);
+        if(drawFlag){
+            setTimeout(randMajor, 100);
+        }
+    }
+</script>
+
+</html>
